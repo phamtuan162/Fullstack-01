@@ -9,8 +9,11 @@ const passportLocal = new LocalStrategy(
   },
   async (email, password, done) => {
     //Xác thực email và password có tồn tại trong database hay không?
-    const provider = await Provider.findOne({
+    const [provider, created] = await Provider.findOrCreate({
       where: { name: "email" },
+      defaults: {
+        name: "email",
+      },
     });
     const user = await User.findOne({
       where: {
