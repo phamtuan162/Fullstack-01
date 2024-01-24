@@ -1,0 +1,125 @@
+<div class="" style="flex: 1">
+  <% if (msg.length) { %>
+  <div class="alert alert-success"><%= msg %></div>
+  <% } %>
+  <h1>Thêm Roles</h1>
+  <form action="" method="post">
+    <div class="mb-4">
+      <label for="name">Tên</label>
+      <div>
+        <input type="text" class="form-control w-100" name="name" />
+        <%- req.errors?.name ? `<span class="text-danger"
+          >${req.errors?.name}</span
+        >`: '' %>
+      </div>
+    </div>
+    <div class="mb-4">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Module</th>
+            <th>Phân quyền</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Quản lý roles</td>
+
+            <td>
+              <div class="row">
+                <div class="col">
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="permissions"
+                      value="roles.read"
+                    />
+                    Xem
+                  </label>
+                </div>
+                <div class="col">
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="permissions"
+                      value="roles.add"
+                    />
+                    Thêm
+                  </label>
+                </div>
+                <div class="col">
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="permissions"
+                      value="roles.edit"
+                    />
+                    Sửa
+                  </label>
+                </div>
+                <div class="col">
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="permissions"
+                      value="roles.delete"
+                    />
+                    Xóa
+                  </label>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Quản lý users</td>
+            <td>
+              <div class="row">
+                <div class="col">
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="permissions"
+                      value="users.read"
+                    />
+                    Xem
+                  </label>
+                </div>
+                <div class="col">
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="permissions"
+                      value="users.add"
+                    />
+                    Thêm
+                  </label>
+                </div>
+                <div class="col">
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="permissions"
+                      value="users.edit"
+                    />
+                    Sửa
+                  </label>
+                </div>
+                <div class="col">
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="permissions"
+                      value="users.delete"
+                    />
+                    Xóa
+                  </label>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button class="btn btn-primary">Lưu thay đổi</button>
+  </form>
+</div>

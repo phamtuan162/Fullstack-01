@@ -1,0 +1,41 @@
+<div style="position: fixed; inset: 0; background: #fff">
+  <h1 class="text-center">Đăng nhập</h1>
+
+  <form action="" method="post" style="width: 300px; margin: 0 auto">
+    <% if(error.length) { %>
+    <div class="alert alert-danger"><%= error %></div>
+
+    <% } %>
+    <div class="mb-4">
+      <label for="email">Email</label>
+      <div>
+        <input
+          type="text"
+          name="email"
+          placeholder="Email..."
+          class="w-100 form-control"
+        />
+      </div>
+    </div>
+    <div class="mb-4">
+      <label for="password">Password</label>
+      <div>
+        <input
+          type="password"
+          name="password"
+          placeholder="Password..."
+          class="w-100 form-control"
+        />
+      </div>
+    </div>
+    <div>
+      <p>Nếu bạn chưa có tài khoản hãy <a href="/auth/dang-ky">Đăng ký</a></p>
+    </div>
+    <div class="">
+      <button class="btn btn-primary w-100 mb-2">Đăng nhập</button>
+      <a href="/auth/google/redirect" class="btn btn-danger w-100"
+        >Login with Google</a
+      >
+    </div>
+  </form>
+</div>

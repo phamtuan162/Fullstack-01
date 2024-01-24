@@ -1,0 +1,35 @@
+<div class="" style="flex: 1">
+  <% if (msg.length) { %>
+  <div class="alert alert-success"><%= msg %></div>
+  <% } %>
+  <h1>Quản lý Roles</h1>
+  <a href="/roles/add" class="btn btn-primary mb-4">Thêm mới</a>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Tên</th>
+        <th width="5%">Sửa</th>
+        <th width="5%">Xóa</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% roles.forEach((role) => { %>
+      <tr>
+        <td><%= role.name %></td>
+        <td>
+          <a href="/roles/edit/<%= role.id %>" class="btn btn-primary">Sửa</a>
+        </td>
+        <td>
+          <form
+            action="/roles/delete/<%= role.id %>"
+            method="post"
+            onsubmit="return confirm('Bạn có chắc chắn muốn xóa không?')"
+          >
+            <button class="btn btn-danger">Xóa</button>
+          </form>
+        </td>
+        <% }) %>
+      </tr>
+    </tbody>
+  </table>
+</div>

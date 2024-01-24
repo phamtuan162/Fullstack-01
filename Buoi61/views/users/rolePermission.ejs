@@ -1,0 +1,30 @@
+<h1>Phân quyền người dùng</h1>
+<form method="post">
+  <% if (msg.length) { %>
+  <div class="alert alert-success"><%= msg %></div>
+  <% } %>
+  <table class="table table-bordered mt-3">
+    <thead>
+      <tr>
+        <th width="10%">
+          <input type="checkbox" name="permissionAll" />
+        </th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% roles.forEach((role)=> { %>
+      <tr>
+        <td>
+          <input value="<%= role.id %>" name="rolePermission" type="checkbox"
+          <%=roleUtils.isRole(user, role.id) ? "checked" : "" %>>
+        </td>
+        <td>
+          <label> <%= role.name %> </label>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <button class="btn btn-primary">Phân quyền người dùng</button>
+</form>

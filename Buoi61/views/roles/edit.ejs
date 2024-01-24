@@ -1,0 +1,113 @@
+
+  <div class="" style="flex: 1">
+    <% if (msg.length) { %>
+    <div class="alert alert-success"><%= msg %></div>
+    <% } %>
+    <h1>Sửa Roles</h1>
+    <select class="form-select mb-2" onchange="location = this.value;">
+      <% roles.forEach(role => { %>
+      <option value="/roles/edit/<%= role.id %>" <%= id == role.id ? "selected" : "" %>><%= role.name %></option>
+      <% }) %>
+    </select>
+    <form action="" method="post">
+      <div class="mb-4">
+        <label for="name">Tên</label>
+        <div>
+          <input
+            type="text"
+            class="form-control w-100"
+            name="name"
+            value="<%= role.name %>"
+          />
+          <%- req.errors?.name ? `<span class="text-danger"
+            >${req.errors?.name}</span
+          >`: '' %>
+        </div>
+      </div>
+      <div class="mb-4">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Module</th>
+              <th >Phân quyền</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Quản lý roles</td>
+              <td>
+                <div class="row">
+                  <div class="col">
+                    <label>
+                      <input type="checkbox" 
+                      name="permissions"
+                      value="roles.read" <%= permissionUtils.isPermission(role
+                      ,"roles.read" ) ? 'checked' : '' %> /> Xem
+                    </label>
+                  </div>
+                  <div class="col">
+                    <label>
+                      <input type="checkbox" name="permissions"
+                      value="roles.add" <%= permissionUtils.isPermission(role
+                      ,"roles.add" ) ? 'checked' : '' %> /> Thêm
+                    </label>
+                  </div>
+                  <div class="col">
+                    <label>
+                      <input type="checkbox" name="permissions"
+                      value="roles.edit" <%= permissionUtils.isPermission(role
+                      ,"roles.edit" ) ? 'checked' : '' %> /> Sửa
+                    </label>
+                  </div>
+                  <div class="col">
+                    <label>
+                      <input type="checkbox" name="permissions"
+                      value="roles.delete" <%= permissionUtils.isPermission(role
+                      ,"roles.delete" ) ? 'checked' : '' %> /> Xóa
+                    </label>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Quản lý users</td>
+              <td>
+                <div class="row">
+                  <div class="col">
+                    <label>
+                      <input type="checkbox" name="permissions"
+                      value="users.read" <%= permissionUtils.isPermission(role
+                      ,"users.read" ) ? 'checked' : '' %> /> Xem
+                    </label>
+                  </div>
+                  <div class="col">
+                    <label>
+                      <input type="checkbox" name="permissions"
+                      value="users.add" <%= permissionUtils.isPermission(role
+                      ,"users.add" ) ? 'checked' : '' %> /> Thêm
+                    </label>
+                  </div>
+                  <div class="col">
+                    <label>
+                      <input type="checkbox" name="permissions"
+                      value="users.edit" <%= permissionUtils.isPermission(role
+                      ,"users.edit" ) ? 'checked' : '' %> /> Sửa
+                    </label>
+                  </div>
+                  <div class="col">
+                    <label>
+                      <input type="checkbox" name="permissions"
+                      value="users.delete" <%= permissionUtils.isPermission(role
+                      ,"users.delete" ) ? 'checked' : '' %> /> Xóa
+                    </label>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button class="btn btn-primary">Lưu thay đổi</button>
+    </form>
+  </div>
+
