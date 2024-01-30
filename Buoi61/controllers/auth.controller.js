@@ -1,4 +1,4 @@
-const { User } = require("../models/index");
+const { User, Provider } = require("../models/index");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const { Op } = require("sequelize");
@@ -6,11 +6,11 @@ const { object, string } = require("yup");
 module.exports = {
   login: async (req, res) => {
     const error = req.flash("error");
-    res.render("auth/login", { error });
+    res.render("auth/login", { error, layout: "auth/layout" });
   },
   register: async (req, res) => {
     const msg = req.flash("msg");
-    res.render("auth/register", { req, msg });
+    res.render("auth/register", { req, msg, layout: "shorten_urls/layout" });
   },
   handleRegister: async (req, res) => {
     const schema = object({

@@ -3,7 +3,10 @@
   <div class="alert alert-success"><%= msg %></div>
   <% } %>
   <h1>Quản lý Roles</h1>
-  <a href="/roles/add" class="btn btn-primary mb-4">Thêm mới</a>
+  <% if (req.can('roles.add')) { %>
+  <a href="/roles/add" class="btn btn-primary mb-2">Thêm vai trò</a>
+  <% } %>
+
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -16,9 +19,12 @@
       <% roles.forEach((role) => { %>
       <tr>
         <td><%= role.name %></td>
+
+        <% if (req.can('roles.edit')) { %>
         <td>
           <a href="/roles/edit/<%= role.id %>" class="btn btn-primary">Sửa</a>
         </td>
+        <% } %> <% if (req.can('roles.delete')) { %>
         <td>
           <form
             action="/roles/delete/<%= role.id %>"
@@ -27,6 +33,7 @@
           >
             <button class="btn btn-danger">Xóa</button>
           </form>
+          <% } %>
         </td>
         <% }) %>
       </tr>

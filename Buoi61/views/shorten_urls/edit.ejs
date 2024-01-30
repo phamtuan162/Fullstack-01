@@ -1,0 +1,113 @@
+<h1>Rút gọn liên kết</h1>
+<div class="d-flex align-items-start" style="gap: 16px">
+  <div class="flex-grow-1" style="overflow-x: auto">
+    <% if (user.shorten_urls && user.shorten_urls.length > 0) { %>
+    <table class="table table-bordered " style="font-size: 12px;">
+      <thead class="table-light">
+        <tr>
+          <th>STT</th>
+          <th style="white-space: nowrap">Liên kết rút gọn</th>
+          <th style="white-space: nowrap">Liên kết gốc</th>
+          <th style="white-space: nowrap">Mật khẩu</th>
+          <th style="white-space: nowrap">Lượt truy cập</th>
+          <th style="white-space: nowrap">Ngày tạo</th>
+          <th style="white-space: nowrap">Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% user.shorten_urls?.forEach((shorten_url,index) => { %>
+
+        <tr>
+          <td style="white-space: nowrap"><%= index + 1 %></td>
+          <td  style="white-space: nowrap">
+            <a target="_blank" rel="noreferrer" href="<%= `${my_url}/shorten-urls/${shorten_url.short_url}`  %>">
+              <%= `${my_url}/shorten-urls/${shorten_url.short_url}`  %>
+            
+            </a>
+          </td>
+          <td  style="white-space: nowrap">
+            <a target="_blank" rel="noreferrer" href="<%= shorten_url.full_url %>">
+              <%= shorten_url.full_url%>
+            </a>
+          </td>
+          <td  style="white-space: nowrap">
+            <%= shorten_url.password ? shorten_url.password : "(không có)" %>
+          </td  style="white-space: nowrap">
+          <td  style="white-space: nowrap"><%= shorten_url.clicks %></td>
+          <td  style="white-space: nowrap"><%= moment(shorten_url.created_at, "YYYYMMDD").locale('vi').fromNow() %></td>
+          <td  style="white-space: nowrap" >
+            <div class="d-flex" style="flex-wrap: nowrap;gap:8px">
+              <a href="/shorten-urls/edit/<%= shorten_url.short_url  %>" class="btn btn-primary" style="padding: 6px;font-size:10px"><i class="fa-solid fa-pen-to-square"></i></a>
+              <a href="" class="btn btn-success" style="padding: 6px;font-size:10px"><i class="fa-solid fa-share"></i></a>
+              <form action="/shorten-urls/delete/<%= shorten_url.short_url  %>" method="post"    onsubmit="return confirm('Bạn có chắc chắn muốn xóa không?')"> 
+                  <button  class="btn btn-danger" style="padding: 6px;font-size:10px">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <% } else { %>
+    <div class="p-4 border border-light-subtle rounded">
+      <span class="btn btn-danger w-100">
+        Bạn chưa rút gọn liên kết nào. Bạn còn chờ gì nữa?
+      </span>
+    </div>
+
+    <% } %>
+  </div>
+
+  <div
+    class="p-3 border border-light-subtle rounded mb-3"
+    style="flex-basis: 30%; flex-shrink: 0"
+  >
+    <form action="" method="post">
+        <% if (msg.length) { %>
+            <div class="alert alert-success mt-3"><%= msg %></div>
+            <% } %>
+      <div class="mb-4">
+        <label for="full_url">Liên kết mục tiêu</label>
+        <div>
+          <input
+            type="text"
+            name="full_url"
+            disabled
+            class="w-100 form-control"
+            value="<%= link.full_url %>"
+          />
+          
+        </div>
+      </div>
+      <div class="mb-4">
+        <label for="short_url">Liên kết rút gọn</label>
+        <div>
+          <input
+            type="text"
+            name="short_url"
+            class="w-100 form-control"
+            value="<%= `${my_url}/shorten-urls/ ${link.short_url} `%>"
+            disabled
+          />
+          
+        </div>
+      </div>
+      <div class="mb-4">
+        <label for="password">Mật khẩu (tùy chọn)</label>
+        <div>
+          <input
+            type="password"
+            name="password"
+            value="<%= link.password %>"
+            class="w-100 form-control"
+          />
+          
+        </div>
+      </div>
+     
+      <button class="btn btn-primary w-100 mt-4">Lưu lại</button>
+    </form>
+  </div>
+</div>

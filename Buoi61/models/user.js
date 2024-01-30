@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "user_id",
         as: "permissions",
       });
+      User.hasMany(models.ShortenUrl, {
+        foreignKey: "user_id",
+        as: "shorten_urls",
+      });
     }
   }
   User.init(

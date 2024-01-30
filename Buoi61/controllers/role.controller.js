@@ -1,6 +1,6 @@
 const { Role, User, Permission } = require("../models/index");
 const { object, string } = require("yup");
-const permissionUtils = require("../utils/permission.utils");
+const { isPermission } = require("../utils/permission.utils");
 const { Op } = require("sequelize");
 
 module.exports = {
@@ -38,15 +38,15 @@ module.exports = {
       if (role) {
         if (permissions.length) {
           for (let i = 0; i < permissions.length; i++) {
-            const permission = await Permission.findOrCreate({
+            const [permission] = await Permission.findOrCreate({
               where: {
-                value: permissions[i],
+                value: permissions[i].trim(),
               },
               defaults: {
-                value: permissions[i],
+                value: permissions[i].trim(),
               },
             });
-            await role.addPermission(permission[0]);
+            await role.addPermission(permission);
           }
         }
         req.flash("msg", "Thêm role thành công");
@@ -79,7 +79,7 @@ module.exports = {
         throw new Error("Role không tồn tại");
       }
 
-      res.render("roles/edit", { id, role, msg, permissionUtils, req, roles });
+      res.render("roles/edit", { id, role, msg, isPermission, req, roles });
     } catch (e) {
       return next(e);
     }
@@ -119,16 +119,16 @@ module.exports = {
       if (status && permissions.length) {
         const permissionsRequest = await Promise.all(
           permissions.map(async (permissionValue) => {
-            const permission = await Permission.findOrCreate({
+            const [permission] = await Permission.findOrCreate({
               where: {
-                value: permissionValue,
+                value: permissionValue.trim(),
               },
               defaults: {
-                value: permissionValue,
+                value: permissionValue.trim(),
               },
             });
 
-            return permission[0];
+            return permission;
           })
         );
         const role = await Role.findByPk(id);
@@ -153,17 +153,10 @@ module.exports = {
       });
 
       if (role) {
-        await Promise.all(
-          role.permissions.map((permission) =>
-            role.removePermission(permission)
-          )
-        );
-        await Promise.all(role.users.map((user) => role.removeUser(user)));
+        role.removePermissions(role.permissions);
+        role.removeUsers(role.users);
 
-        await Role.destroy({
-          where: { id },
-          force: true,
-        });
+        await role.destroy();
 
         req.flash("msg", "Xóa role thành công");
       }

@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
 const { User, Role } = require("../models/index");
-const roleUtils = require("../utils/role.utils");
+const { isRole } = require("../utils/permission.utils");
 
 module.exports = {
   index: async (req, res) => {
@@ -47,7 +47,7 @@ module.exports = {
         req,
         roles,
         user,
-        roleUtils,
+        isRole,
       });
     } catch (e) {
       next(e);
@@ -85,12 +85,8 @@ module.exports = {
       });
 
       if (user) {
-        await Promise.all(user.roles.map((role) => user.removeRole(role)));
-
-        await User.destroy({
-          where: { id },
-          force: true,
-        });
+        await user.removeRoles(user.roles);
+        await user.destroy();
 
         req.flash("msg", "Xóa user thành công");
       }

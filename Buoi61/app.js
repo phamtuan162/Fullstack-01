@@ -17,6 +17,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var authRouter = require("./routes/auth");
 var roleRouter = require("./routes/role");
+var shortenUrlsRouter = require("./routes/shortenurls");
 
 const authMiddleware = require("./middlewares/auth.middleware");
 const guestMiddleware = require("./middlewares/guest.middleware");
@@ -66,6 +67,7 @@ app.use(authMiddleware);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/roles", roleRouter);
+app.use("/shorten-urls", shortenUrlsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -80,7 +82,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  res.render("error", { layout: false });
 });
 
 module.exports = app;

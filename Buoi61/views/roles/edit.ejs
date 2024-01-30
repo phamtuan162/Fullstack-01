@@ -41,28 +41,28 @@
                     <label>
                       <input type="checkbox" 
                       name="permissions"
-                      value="roles.read" <%= permissionUtils.isPermission(role
+                      value="roles.read" <%= isPermission(role
                       ,"roles.read" ) ? 'checked' : '' %> /> Xem
                     </label>
                   </div>
                   <div class="col">
                     <label>
                       <input type="checkbox" name="permissions"
-                      value="roles.add" <%= permissionUtils.isPermission(role
+                      value="roles.add" <%= isPermission(role
                       ,"roles.add" ) ? 'checked' : '' %> /> Thêm
                     </label>
                   </div>
                   <div class="col">
                     <label>
                       <input type="checkbox" name="permissions"
-                      value="roles.edit" <%= permissionUtils.isPermission(role
+                      value="roles.edit" <%= isPermission(role
                       ,"roles.edit" ) ? 'checked' : '' %> /> Sửa
                     </label>
                   </div>
                   <div class="col">
                     <label>
                       <input type="checkbox" name="permissions"
-                      value="roles.delete" <%= permissionUtils.isPermission(role
+                      value="roles.delete" <%= isPermission(role
                       ,"roles.delete" ) ? 'checked' : '' %> /> Xóa
                     </label>
                   </div>
@@ -76,28 +76,28 @@
                   <div class="col">
                     <label>
                       <input type="checkbox" name="permissions"
-                      value="users.read" <%= permissionUtils.isPermission(role
+                      value="users.read" <%= isPermission(role
                       ,"users.read" ) ? 'checked' : '' %> /> Xem
                     </label>
                   </div>
                   <div class="col">
                     <label>
                       <input type="checkbox" name="permissions"
-                      value="users.add" <%= permissionUtils.isPermission(role
+                      value="users.add" <%= isPermission(role
                       ,"users.add" ) ? 'checked' : '' %> /> Thêm
                     </label>
                   </div>
                   <div class="col">
                     <label>
                       <input type="checkbox" name="permissions"
-                      value="users.edit" <%= permissionUtils.isPermission(role
+                      value="users.edit" <%= isPermission(role
                       ,"users.edit" ) ? 'checked' : '' %> /> Sửa
                     </label>
                   </div>
                   <div class="col">
                     <label>
                       <input type="checkbox" name="permissions"
-                      value="users.delete" <%= permissionUtils.isPermission(role
+                      value="users.delete" <%= isPermission(role
                       ,"users.delete" ) ? 'checked' : '' %> /> Xóa
                     </label>
                   </div>

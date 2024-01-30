@@ -1,8 +1,8 @@
 module.exports = {
-  isPermission: (role, permissionValue) => {
-    const result = role.permissions.find(
-      (item) => item.value === permissionValue
-    );
-    return result ? true : false;
+  isPermission: (obj, value) => {
+    return obj.permissions.find((item) => item.value === value);
+  },
+  isRole: (obj, roleId) => {
+    return obj.roles.find((item) => +item.id === +roleId);
   },
 };
